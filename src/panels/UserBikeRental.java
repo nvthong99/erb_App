@@ -8,6 +8,8 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JPanel;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import api.BikeApi;
 import api.ParkApi;
 import beans.Bike;
@@ -19,17 +21,21 @@ import controller.BikeController;
 import controller.ParkController;
 
 
+
 public class UserBikeRental extends JPanel{
-	
+	private static final long serialVersionUID = 1L;
+
 	private CRUDTable<Bike> table;
 	private BikeController bikeController;
-	
+	private OptionPane<Bike> cardNumberDialog;
+
 	private BikeApi bikeApi;
-	private BikeManager bikeManager;
+
 
 	
 	public UserBikeRental() {
 		super();
+		initialize();
 		
 	}
 	
@@ -38,35 +44,42 @@ public class UserBikeRental extends JPanel{
 		this.setLayout(layout);
 
 		LinkedHashMap<String, Action> events = new LinkedHashMap<>();
-		events.put(Constants.READ, new ReadEvent());
-//		events.put(Constants.UPDATE, new UpdateEvent());
-//		events.put(Constants.DELETE, new DeleteEvent());
+		events.put(Constants.RENTAL, new RentalEvent());
 
 		table = new CRUDTable<>(Bike.getFields());
-//		table.initialize(events, new CreateEvent());
+		table.initialize(events, null);
 
-		bikeApi = new BikeApi() ;
+		bikeApi = new BikeApi();
 		bikeController = new BikeController(table, bikeApi);
-		System.out.println(bikeApi.getAll());
-		table.updateData(bikeApi.getAll());
+		table.updateData(bikeApi.getAlls());
 
-		
+		cardNumberDialog = new OptionPane<>(Bike.getUpdateFields());
+		cardNumberDialog.initialize("Cập nhật xe", "Cập nhật");
 
-		bikeManager = new BikeManager();
+
 
 		this.add(table, BorderLayout.CENTER);
 	}
-	
-	private class ReadEvent extends AbstractAction {
+
+	private class RentalEvent extends AbstractAction {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public void actionPerformed(ActionEvent event) {
+		public void actionPerformed(ActionEvent e) {
 			Object bean = table.getSelectedBean();
-			if (bean instanceof Park) {
+
+			if (bean instanceof Bike) {
 				Bike bike = (Bike) bean;
-				bikeManager.showDialog(bike.getId());
+				cardNumberDialog.updateDate(bike);
+			}
+
+			LinkedHashMap<String, String> result = cardNumberDialog.showDialog();
+			if (result != null) {
+				ObjectMapper mapper = new ObjectMapper();
+				Bike park = mapper.convertValue(result, Bike.class);
+				bikeController.onUpdate(park);
 			}
 		}
 	}
+
 }

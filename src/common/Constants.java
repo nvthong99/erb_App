@@ -21,5 +21,7 @@ public class Constants {
 	public final static String READ = "Thông tin xe";
 	public final static String UPDATE = "Sửa";
 	public final static String DELETE = "Xóa";
+	public final static String RENTAL = "Thuê";
+	public final static String GIVE_BACK = "Trả xe";
 
 }

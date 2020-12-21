@@ -10,7 +10,7 @@ public class UserPane extends RootPane {
 	
 	@Override
 	public void addTabItem(JTabbedPane jtabbedPane) {
-		jtabbedPane.addTab("Quản lý người dùng", null, new UserBikeRental());
+		jtabbedPane.addTab("Thuê Xe", null, new UserBikeRental());
 //		jtabbedPane.addTab("Quản lý bãi xe", null, new ParkManager());
 //		jtabbedPane.addTab("Quản lý xe đang sử dụng", null, new UsedBikeManager());
 	}

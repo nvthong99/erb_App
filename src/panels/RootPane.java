@@ -19,6 +19,7 @@ public class RootPane extends JPanel {
 
 		JTabbedPane tabbedPane = new JTabbedPane();
 		this.add(tabbedPane, BorderLayout.CENTER);
+
 		addTabItem(tabbedPane);
 		
 	}
@@ -26,5 +27,8 @@ public class RootPane extends JPanel {
 		jtabbedPane.addTab("Quản lý người dùng", null, new UserManager());
 		jtabbedPane.addTab("Quản lý bãi xe", null, new ParkManager());
 		jtabbedPane.addTab("Quản lý xe đang sử dụng", null, new UsedBikeManager());
+
+
+
 	}
 }

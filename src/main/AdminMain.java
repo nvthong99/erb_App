@@ -15,6 +15,7 @@ import beans.Park;
 
 import common.Constants;
 import panels.RootPane;
+import panels.UserPane;
 
 public class AdminMain {
 
@@ -44,7 +45,7 @@ public class AdminMain {
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setTitle("EBR-Admin");
 		frame.setLocationRelativeTo(null);
-
+//		UserPane userPane = new UserPane();
 		RootPane rootPane = new RootPane();
 		frame.setContentPane(rootPane);
 		frame.setVisible(true);

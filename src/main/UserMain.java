@@ -1,24 +1,17 @@
 package main;
 
 import java.awt.EventQueue;
-import java.awt.desktop.SystemSleepEvent;
 
 import javax.swing.JFrame;
 
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.github.weisj.darklaf.LafManager;
 //import com.github.weisj.darklaf.theme.DarculaTheme;
 
-
-import api.ParkApi;
-
-import beans.Park;
-
 import common.Constants;
 import panels.RootPane;
-import panels.UserPane;
 
-public class AdminMain {
-
+public class UserMain {
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -26,7 +19,7 @@ public class AdminMain {
 				try {
 //					LafManager.install(new DarculaTheme());
 					LafManager.install();
-					new AdminMain();
+					new UserMain();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -34,7 +27,7 @@ public class AdminMain {
 		});
 	}
 
-	public AdminMain() {
+	public UserMain() {
 		initialize();
 	}
 
@@ -45,7 +38,9 @@ public class AdminMain {
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setTitle("EBR-Admin");
 		frame.setLocationRelativeTo(null);
-//		UserPane userPane = new UserPane();
+
+		Constants.mapper.disable(MapperFeature.USE_ANNOTATIONS);
+
 		RootPane rootPane = new RootPane();
 		frame.setContentPane(rootPane);
 		frame.setVisible(true);

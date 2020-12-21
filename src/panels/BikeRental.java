@@ -6,39 +6,27 @@ import java.util.LinkedHashMap;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.JPanel;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.swing.JDialog;
 
 import api.BikeApi;
-import api.ParkApi;
 import beans.Bike;
 import beans.Park;
 import common.Constants;
 import components.CRUDTable;
-import components.OptionPane;
 import controller.BikeController;
-import controller.ParkController;
 
-
-
-public class UserBikeRental extends JPanel{
+public class BikeRental extends JDialog {
 	private static final long serialVersionUID = 1L;
 
 	private CRUDTable<Bike> table;
 	private BikeController bikeController;
-	private OptionPane<Bike> cardNumberDialog;
-
 	private BikeApi bikeApi;
 
-
-	
-	public UserBikeRental() {
+	public BikeRental() {
 		super();
 		initialize();
-		
 	}
-	
+
 	private void initialize() {
 		BorderLayout layout = new BorderLayout();
 		this.setLayout(layout);
@@ -51,14 +39,16 @@ public class UserBikeRental extends JPanel{
 
 		bikeApi = new BikeApi();
 		bikeController = new BikeController(table, bikeApi);
-		table.updateData(bikeApi.getAlls());
-
-		cardNumberDialog = new OptionPane<>(Bike.getUpdateFields());
-		cardNumberDialog.initialize("Cập nhật xe", "Cập nhật");
-
-
 
 		this.add(table, BorderLayout.CENTER);
+		this.setLocationRelativeTo(null);
+	}
+
+	public void showDialog(Park park) {
+		bikeApi.setParkId(park.getId());
+		table.updateData(bikeApi.getAll());
+		this.setModal(true);
+		this.setVisible(true);
 	}
 
 	private class RentalEvent extends AbstractAction {
@@ -70,14 +60,7 @@ public class UserBikeRental extends JPanel{
 
 			if (bean instanceof Bike) {
 				Bike bike = (Bike) bean;
-				cardNumberDialog.updateDate(bike);
-			}
-
-			LinkedHashMap<String, String> result = cardNumberDialog.showDialog();
-			if (result != null) {
-				ObjectMapper mapper = new ObjectMapper();
-				Bike park = mapper.convertValue(result, Bike.class);
-				bikeController.onUpdate(park);
+				bikeController.onRent(bike);
 			}
 		}
 	}

@@ -45,9 +45,9 @@ public class AdminMain {
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setTitle("EBR-Admin");
 		frame.setLocationRelativeTo(null);
-		UserPane userPane = new UserPane();
-//		RootPane rootPane = new RootPane();
-		frame.setContentPane(userPane);
+//		UserPane userPane = new UserPane();
+		RootPane rootPane = new RootPane();
+		frame.setContentPane(rootPane);
 		frame.setVisible(true);
 	}
 }

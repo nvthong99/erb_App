@@ -80,19 +80,25 @@ public class Park {
 	public static ArrayList<FieldOption> getUpdateFields() {
 		ArrayList<FieldOption> fields = new ArrayList<>();
 		fields.add(new FieldOption("id", "id", false, false));
-
+		fields.add(new FieldOption("parkName", "Tên bãi xe"));
+		fields.add(new FieldOption("address", "Địa chỉ"));
+		fields.add(new FieldOption("capacity", "Tổng số xe"));
+		fields.add(new FieldOption("numBikes", "Số xe Bikes"));
+		fields.add(new FieldOption("numEBikes", "Số xe EBikes"));
+		fields.add(new FieldOption("numTwinBike", "Số xe TwinBikes"));
 		return fields;
 	}
 
 	public static ArrayList<FieldOption> getCreateFields() {
 		ArrayList<FieldOption> fields = new ArrayList<>();
-		fields.add(new FieldOption("id", "id", false, false));
+//		fields.add(new FieldOption("id", "id", false, false));
 		fields.add(new FieldOption("parkName", "Tên bãi xe"));
 		fields.add(new FieldOption("address", "Địa chỉ"));
-//		fields.add(new FieldOption("name", "Họ tên"));
-//		fields.add(new FieldOption("username", "Tài khảo", false, false));
-//		fields.add(new FieldOption("password", "Mật khẩu", true, true));
-//		fields.add(new FieldOption("money", "Số dư"));
+		fields.add(new FieldOption("capacity", "Tổng số xe"));
+		fields.add(new FieldOption("numBikes", "Số xe Bikes"));
+		fields.add(new FieldOption("numEBikes", "Số xe EBikes"));
+		fields.add(new FieldOption("numTwinBike", "Số xe TwinBikes"));
+
 		return fields;
 	}
 

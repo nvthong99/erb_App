@@ -22,4 +22,13 @@ public class BikeController extends AController<Bike> {
 		}
 	}
 
+	public void onGiveBack(Bike bike) {
+		try {
+			((BikeApi) api).giveBack(bike);
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Rent error", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
 }

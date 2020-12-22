@@ -1,5 +1,6 @@
 package api;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 import javax.ws.rs.client.Invocation;
@@ -36,9 +37,20 @@ public class BikeApi implements IApi<Bike> {
 			return new ArrayList<>();
 		}
 	}
-	
+
 	public void rent(Bike bike) {
-		
+		// TODO Auto-generated method stub
+
+	}
+
+	public void giveBack(Bike bike) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public Graphics getRentedBikeAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

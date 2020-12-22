@@ -21,5 +21,6 @@ public class RootPane extends JPanel {
 		this.add(tabbedPane, BorderLayout.CENTER);
 
 		tabbedPane.addTab("Thuê Xe", null, new ParkPane());
+		tabbedPane.addTab("Xe đang thuê", null, new RentedBikePane());
 	}
 }

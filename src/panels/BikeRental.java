@@ -29,6 +29,7 @@ public class BikeRental extends JDialog {
 
 	private void initialize() {
 		BorderLayout layout = new BorderLayout();
+		this.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
 		this.setLayout(layout);
 
 		LinkedHashMap<String, Action> events = new LinkedHashMap<>();

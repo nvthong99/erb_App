@@ -57,7 +57,7 @@ public class User {
 		fields.add(new FieldOption("money", "Số dư", false, false));
 		return fields;
 	}
-
+	
 	public static ArrayList<FieldOption> getUpdateFields() {
 		ArrayList<FieldOption> fields = new ArrayList<>();
 		fields.add(new FieldOption("id", "id", false, false));

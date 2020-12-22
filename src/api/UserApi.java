@@ -10,25 +10,24 @@ import javax.ws.rs.core.Response;
 
 import beans.User;
 import common.Constants;
+import helpers.ResponseCustom;
 import interfaces.IApi;
 
 public class UserApi implements IApi<User> {
 
-	public static User getUser() {
-		try {
-			WebTarget webTarget = Constants.client.target(Constants.PATH).path("users");
+	public User getUser() {
 
-			Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-			Response response = invocationBuilder.get();
+		WebTarget webTarget = Constants.client.target(Constants.PATH).path("users").path("1");
 
-			User res = response.readEntity(new GenericType<User>() {
-			});
+		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
+		Response response = invocationBuilder.get();
 
-			return res;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+		ResponseCustom<User> res = response.readEntity(ResponseCustom.class);
+		System.out.println("fdsfsd" + res.getT());
+		if (res.getStatus() == 1) {
+			return res.getT();
 		}
+		return null;
 	}
 
 	@Override
@@ -47,6 +46,11 @@ public class UserApi implements IApi<User> {
 			e.printStackTrace();
 			return new ArrayList<>();
 		}
+	}
+
+	@Override
+	public ArrayList<User> getAll(String text) {
+		return null;
 	}
 
 }

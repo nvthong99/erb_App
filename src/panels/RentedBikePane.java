@@ -35,7 +35,7 @@ public class RentedBikePane extends JPanel {
 		events.put(Constants.GIVE_BACK, new GiveBackEvent());
 
 		table = new CRUDTable<>(Bike.getFields());
-		table.initialize(events, null);
+		table.initialize(events, null, new SearchEvent());
 		this.add(table, BorderLayout.CENTER);
 
 		bikeApi = new BikeApi();
@@ -53,6 +53,18 @@ public class RentedBikePane extends JPanel {
 			if (bean instanceof Bike) {
 				Bike bike = (Bike) bean;
 				bikeController.onGiveBack(bike, ParkApi.getAllPark());
+			}
+		}
+	}
+
+	private class SearchEvent extends AbstractAction {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String text = table.getSearchField().getText();
+			if (text != null && text != "") {
+				table.updateData(bikeController.onSearch(text));
 			}
 		}
 	}

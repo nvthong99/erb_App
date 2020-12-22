@@ -5,7 +5,6 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import api.UserApi;
 import beans.User;
 
 public class RootPane extends JPanel {
@@ -28,8 +27,8 @@ public class RootPane extends JPanel {
 		tabbedPane.addTab("Xe đang thuê", null, rentedBikePane);
 		tabbedPane.addTab("Thuê Xe", null, parkPane);
 
-		UserPane userPane = new UserPane(User.getDataFields());
+//		UserPane userPane = new UserPane(User.getDataFields());
 //		userPane.updateData(UserApi.getUser());
-		tabbedPane.addTab("Số dư", null, userPane);
+//		tabbedPane.addTab("Số dư", null, userPane);
 	}
 }

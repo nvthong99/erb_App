@@ -36,7 +36,7 @@ public class BikeRental extends JDialog {
 		events.put(Constants.RENTAL, new RentalEvent());
 
 		table = new CRUDTable<>(Bike.getFields());
-		table.initialize(events, null);
+		table.initialize(events, null, new SearchEvent());
 
 		bikeApi = new BikeApi();
 		bikeController = new BikeController(table, bikeApi, rentedBikeTable);
@@ -62,6 +62,18 @@ public class BikeRental extends JDialog {
 			if (bean instanceof Bike) {
 				Bike bike = (Bike) bean;
 				bikeController.onRent(bike);
+			}
+		}
+	}
+
+	private class SearchEvent extends AbstractAction {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String text = table.getSearchField().getText();
+			if (text != null && text != "") {
+				table.updateData(bikeController.onSearch(text));
 			}
 		}
 	}

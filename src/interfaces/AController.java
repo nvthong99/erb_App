@@ -1,5 +1,7 @@
 package interfaces;
 
+import java.util.ArrayList;
+
 import components.CRUDTable;
 
 public class AController<T> {
@@ -11,4 +13,7 @@ public class AController<T> {
 		this.api = api;
 	}
 
+	public ArrayList<T> onSearch(String text) {
+		return api.getAll(text);
+	}
 }

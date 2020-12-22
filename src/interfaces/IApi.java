@@ -6,4 +6,5 @@ public interface IApi<T> {
 
 	public ArrayList<T> getAll();
 
+	public ArrayList<T> getAll(String text);
 }

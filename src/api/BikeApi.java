@@ -1,6 +1,5 @@
 package api;
 
-import java.awt.Graphics;
 import java.util.ArrayList;
 
 import javax.ws.rs.client.Entity;
@@ -21,6 +20,25 @@ public class BikeApi implements IApi<Bike> {
 
 	public void setParkId(String parkId) {
 		this.parkId = parkId;
+	}
+
+	@Override
+	public ArrayList<Bike> getAll(String text) {
+		try {
+			WebTarget webTarget = Constants.client.target(Constants.PATH).path("bikes").path("fromPark").path(parkId)
+					.queryParam("search", text);
+
+			Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
+			Response response = invocationBuilder.get();
+
+			ArrayList<Bike> res = response.readEntity(new GenericType<ArrayList<Bike>>() {
+			});
+
+			return res;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
 	}
 
 	public ArrayList<Bike> getAll() {
@@ -53,7 +71,8 @@ public class BikeApi implements IApi<Bike> {
 	}
 
 	public void giveBack(Bike bike, String parkId) {
-		WebTarget webTarget = Constants.client.target(Constants.PATH).path("bikes").path("return").path(bike.getId());
+		WebTarget webTarget = Constants.client.target(Constants.PATH).path("bikes").path(bike.getId()).path("return")
+				.path(parkId);
 
 		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 		Response response = invocationBuilder.post(Entity.entity(bike, MediaType.APPLICATION_JSON));
@@ -71,7 +90,6 @@ public class BikeApi implements IApi<Bike> {
 
 			ArrayList<Bike> res = response.readEntity(new GenericType<ArrayList<Bike>>() {
 			});
-
 
 			return res;
 		} catch (Exception e) {

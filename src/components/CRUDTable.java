@@ -1,6 +1,7 @@
 package components;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -11,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -25,12 +27,17 @@ public class CRUDTable<T> extends JPanel {
 
 	private JTable table;
 	private DefaultTableModel tableModel;
+	private JTextField searchField;
 
 	public CRUDTable(LinkedHashMap<String, String> fields) {
 		this.fields = fields;
 	}
 
 	public void initialize(LinkedHashMap<String, Action> events, Action createEvent) {
+		this.initialize(events, createEvent, null);
+	}
+
+	public void initialize(LinkedHashMap<String, Action> events, Action createEvent, Action searchEvent) {
 
 		BorderLayout layout = new BorderLayout();
 		this.setLayout(layout);
@@ -65,11 +72,26 @@ public class CRUDTable<T> extends JPanel {
 		table.getColumnModel().getColumn(0).setMaxWidth(0);
 		this.add(new JScrollPane(table), BorderLayout.CENTER);
 
+		JPanel panel = new JPanel();
+		FlowLayout flowLayotu = new FlowLayout();
+		panel.setLayout(flowLayotu);
+
+		searchField = new JTextField(30);
+		panel.add(searchField);
+
+		JButton search = new JButton("Tìm kiếm");
+		if (searchEvent != null) {
+			search.addActionListener(searchEvent);
+		}
+		panel.add(search);
+
 		if (createEvent != null) {
 			JButton createButton = new JButton(Constants.CREATE);
 			createButton.addActionListener(createEvent);
-			this.add(new JScrollPane(createButton), BorderLayout.NORTH);
+			panel.add(createButton);
 		}
+
+		this.add(panel, BorderLayout.NORTH);
 
 		int index = 0;
 		for (String name : buttonNames) {
@@ -106,7 +128,7 @@ public class CRUDTable<T> extends JPanel {
 			}
 			tableModel.addRow(values.toArray());
 		}
-		
+
 		table.repaint();
 		table.revalidate();
 	}
@@ -121,6 +143,10 @@ public class CRUDTable<T> extends JPanel {
 		int selectedRow = table.convertRowIndexToModel(table.getEditingRow());
 		Object bean = tableModel.getValueAt(selectedRow, 0);
 		return bean;
+	}
+
+	public JTextField getSearchField() {
+		return searchField;
 	}
 
 }

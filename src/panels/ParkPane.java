@@ -13,6 +13,7 @@ import beans.Bike;
 import beans.Park;
 import common.Constants;
 import components.CRUDTable;
+import controller.ParkController;
 
 public class ParkPane extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -20,6 +21,7 @@ public class ParkPane extends JPanel {
 	private CRUDTable<Park> table;
 	private ParkApi parkApi;
 	private BikeRental userBikeRental;
+	private ParkController parkController;
 
 	public ParkPane(CRUDTable<Bike> rentedBikeTable) {
 		super();
@@ -34,10 +36,11 @@ public class ParkPane extends JPanel {
 		events.put(Constants.PARK_READ, new ReadEvent());
 
 		table = new CRUDTable<>(Park.getFields());
-		table.initialize(events, null);
+		table.initialize(events, null, new SearchEvent());
 
 		parkApi = new ParkApi();
 		table.updateData(parkApi.getAll());
+		parkController = new ParkController(table, parkApi);
 
 		userBikeRental = new BikeRental(rentedBikeTable);
 		this.add(table, BorderLayout.CENTER);
@@ -52,6 +55,18 @@ public class ParkPane extends JPanel {
 			if (bean instanceof Park) {
 				Park park = (Park) bean;
 				userBikeRental.showDialog(park);
+			}
+		}
+	}
+
+	private class SearchEvent extends AbstractAction {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String text = table.getSearchField().getText();
+			if (text != null && text != "") {
+				table.updateData(parkController.onSearch(text));
 			}
 		}
 	}

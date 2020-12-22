@@ -43,7 +43,7 @@ public class Park {
 
 	@JsonProperty("updated_at")
 	private Timestamp updatedAt;
-
+	
 	public Park() {
 		super();
 	}

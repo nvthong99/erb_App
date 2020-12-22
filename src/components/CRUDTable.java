@@ -83,6 +83,7 @@ public class CRUDTable<T> extends JPanel {
 
 	public void updateData(ArrayList<T> data) {
 		this.data = data;
+		System.out.println(data);
 		Set<String> keys = fields.keySet();
 		for (int i = tableModel.getRowCount() - 1; i >= 0; i--) {
 			tableModel.removeRow(i);
@@ -103,7 +104,6 @@ public class CRUDTable<T> extends JPanel {
 					e.printStackTrace();
 				}
 			}
-
 			tableModel.addRow(values.toArray());
 		}
 		

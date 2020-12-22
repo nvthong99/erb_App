@@ -14,6 +14,23 @@ import interfaces.IApi;
 
 public class UserApi implements IApi<User> {
 
+	public static User getUser() {
+		try {
+			WebTarget webTarget = Constants.client.target(Constants.PATH).path("users");
+
+			Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
+			Response response = invocationBuilder.get();
+
+			User res = response.readEntity(new GenericType<User>() {
+			});
+
+			return res;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	@Override
 	public ArrayList<User> getAll() {
 		try {

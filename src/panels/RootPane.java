@@ -5,6 +5,9 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import api.UserApi;
+import beans.User;
+
 public class RootPane extends JPanel {
 	private static final long serialVersionUID = 1L;
 
@@ -20,7 +23,13 @@ public class RootPane extends JPanel {
 		JTabbedPane tabbedPane = new JTabbedPane();
 		this.add(tabbedPane, BorderLayout.CENTER);
 
-		tabbedPane.addTab("Thuê Xe", null, new ParkPane());
-		tabbedPane.addTab("Xe đang thuê", null, new RentedBikePane());
+		RentedBikePane rentedBikePane = new RentedBikePane();
+		ParkPane parkPane = new ParkPane(rentedBikePane.getTable());
+		tabbedPane.addTab("Xe đang thuê", null, rentedBikePane);
+		tabbedPane.addTab("Thuê Xe", null, parkPane);
+
+		UserPane userPane = new UserPane(User.getDataFields());
+//		userPane.updateData(UserApi.getUser());
+		tabbedPane.addTab("Số dư", null, userPane);
 	}
 }

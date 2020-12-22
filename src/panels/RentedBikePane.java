@@ -9,6 +9,7 @@ import javax.swing.Action;
 import javax.swing.JPanel;
 
 import api.BikeApi;
+import api.ParkApi;
 import beans.Bike;
 import common.Constants;
 import components.CRUDTable;
@@ -35,10 +36,11 @@ public class RentedBikePane extends JPanel {
 
 		table = new CRUDTable<>(Bike.getFields());
 		table.initialize(events, null);
+		this.add(table, BorderLayout.CENTER);
 
 		bikeApi = new BikeApi();
 		bikeController = new BikeController(table, bikeApi);
-		table.update(bikeApi.getRentedBikeAll());
+		table.updateData(bikeApi.getRentedBikeAll());
 	}
 
 	private class GiveBackEvent extends AbstractAction {
@@ -50,9 +52,12 @@ public class RentedBikePane extends JPanel {
 
 			if (bean instanceof Bike) {
 				Bike bike = (Bike) bean;
-				bikeController.onGiveBack(bike);
+				bikeController.onGiveBack(bike, ParkApi.getAllPark());
 			}
 		}
 	}
 
+	public CRUDTable<Bike> getTable() {
+		return table;
+	}
 }

@@ -9,6 +9,7 @@ import javax.swing.Action;
 import javax.swing.JPanel;
 
 import api.ParkApi;
+import beans.Bike;
 import beans.Park;
 import common.Constants;
 import components.CRUDTable;
@@ -20,12 +21,12 @@ public class ParkPane extends JPanel {
 	private ParkApi parkApi;
 	private BikeRental userBikeRental;
 
-	public ParkPane() {
+	public ParkPane(CRUDTable<Bike> rentedBikeTable) {
 		super();
-		initialize();
+		initialize(rentedBikeTable);
 	}
 
-	private void initialize() {
+	private void initialize(CRUDTable<Bike> rentedBikeTable) {
 		BorderLayout layout = new BorderLayout();
 		this.setLayout(layout);
 
@@ -38,7 +39,7 @@ public class ParkPane extends JPanel {
 		parkApi = new ParkApi();
 		table.updateData(parkApi.getAll());
 
-		userBikeRental = new BikeRental();
+		userBikeRental = new BikeRental(rentedBikeTable);
 		this.add(table, BorderLayout.CENTER);
 	}
 

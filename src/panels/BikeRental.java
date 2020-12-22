@@ -22,12 +22,12 @@ public class BikeRental extends JDialog {
 	private BikeController bikeController;
 	private BikeApi bikeApi;
 
-	public BikeRental() {
+	public BikeRental(CRUDTable<Bike> rentedBikeTable) {
 		super();
-		initialize();
+		initialize(rentedBikeTable);
 	}
 
-	private void initialize() {
+	private void initialize(CRUDTable<Bike> rentedBikeTable) {
 		BorderLayout layout = new BorderLayout();
 		this.setSize(Constants.DIALOG_WIDTH, Constants.DIALOG_HEIGHT);
 		this.setLayout(layout);
@@ -39,7 +39,7 @@ public class BikeRental extends JDialog {
 		table.initialize(events, null);
 
 		bikeApi = new BikeApi();
-		bikeController = new BikeController(table, bikeApi);
+		bikeController = new BikeController(table, bikeApi, rentedBikeTable);
 
 		this.add(table, BorderLayout.CENTER);
 		this.setLocationRelativeTo(null);

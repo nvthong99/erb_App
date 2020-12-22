@@ -49,6 +49,15 @@ public class User {
 		return fields;
 	}
 
+	public static ArrayList<FieldOption> getDataFields() {
+		ArrayList<FieldOption> fields = new ArrayList<>();
+		fields.add(new FieldOption("id", "id", false, false));
+		fields.add(new FieldOption("name", "Họ tên", false, false));
+		fields.add(new FieldOption("username", "Tài khảo", false, false));
+		fields.add(new FieldOption("money", "Số dư", false, false));
+		return fields;
+	}
+
 	public static ArrayList<FieldOption> getUpdateFields() {
 		ArrayList<FieldOption> fields = new ArrayList<>();
 		fields.add(new FieldOption("id", "id", false, false));
